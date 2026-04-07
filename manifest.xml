@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/Framework/App/Manifest/Schema/manifest-1.0.xsd">
+    <meta>
+        <name>ZeobvCountrySelect</name>
+
+        <label>Select shipping country for accurate prices</label>
+        <label lang="de-DE">Wähle das Versandland für genaue Preise</label>
+        <label lang="nl-NL">Selecteer het land van verzending voor nauwkeurige prijzen</label>
+
+        <description>Allow the customer to preselect the shipping country in order to receive accurate prices.</description>
+        <description lang="de-DE">Erlaube dem Kunden die Vorauswahl des Versandlandes, um genaue Preise zu erhalten.</description>
+        <description lang="nl-NL">Laat de klant het land van verzending voorselecteren om nauwkeurige prijzen te ontvangen.</description>
+
+        <author>DizTech BV.</author>
+        <copyright>(c) by DizTech BV.</copyright>
+        <version>4.0.2</version>
+
+        <icon>Resources/config/plugin.png</icon>
+
+        <license>proprietary</license>
+    </meta>
+</manifest>

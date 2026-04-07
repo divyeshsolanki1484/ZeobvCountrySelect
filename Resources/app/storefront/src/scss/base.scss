@@ -1,0 +1,28 @@
+.zeobv-country-select-menu {
+    .dropdown-menu {
+        padding: 0;
+    }
+}
+
+.zeobv-country-select {
+    list-style: none;
+    padding: 0;
+    overflow-y: auto;
+    height: 200px;
+    margin: 0;
+
+    &__selected {
+        display: block;
+        padding: 10px 15px;
+        font-weight: bold;
+        border-bottom: 1px solid var(--light);
+    }
+
+    &__option {
+        cursor: pointer;
+        padding: 10px 15px;
+        &:hover {
+            background-color: var(--light);
+        }
+    }
+}

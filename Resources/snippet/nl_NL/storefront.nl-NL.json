@@ -1,0 +1,6 @@
+{
+    "zeobv-country-select": {
+        "hint": "Selecteer een land van verzending om de prijsnauwkeurigheid te verbeteren",
+        "dropdownLabel": "Selecteer een verzendland"
+    }
+}

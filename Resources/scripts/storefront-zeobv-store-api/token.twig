@@ -1,0 +1,5 @@
+{% set response = services.response.json({ 
+    'key': hook.salesChannelContext.salesChannel.accessKey,
+}) %}
+
+{% do hook.setResponse(response) %}

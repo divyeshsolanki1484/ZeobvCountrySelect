@@ -1,0 +1,6 @@
+{
+    "zeobv-country-select": {
+        "hint": "Select a shipping country to improve price accuracy",
+        "dropdownLabel": "Select a shipping country"
+    }
+}

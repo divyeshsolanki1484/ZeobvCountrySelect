@@ -1,0 +1,44 @@
+{% sw_extends '@Storefront/storefront/layout/header/header.html.twig' %}
+
+{% block layout_header_actions_account %}
+    {{ parent() }}
+
+    {% set appDetailUrl = url('frontend.script_endpoint', {
+        hook: 'zeobv-store-api',
+    }) %}
+
+    <div 
+        class="col-auto" 
+        title="{{ "zeobv-country-select.hint"|trans|striptags }}"
+        data-zeobv-country-select="true"
+        data-zeobv-country-select-options='{
+            "appStoreApiDetailUrl": "{{ appDetailUrl }}",
+            "storeApiContextUrl": "{{ seoUrl('store-api.switch-context') }}",
+            "storeApiCountryUrl": "{{ seoUrl('store-api.country') }}"
+        }'
+    >
+        
+        <div class="zeobv-country-select-menu">
+        
+            {% block layout_header_actions_country_widget_dropdown_button %}
+                <button class="btn country-menu-btn header-actions-btn"
+                        type="button"
+                        id="countryWidget"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-label="{{ "zeobv-country-select.dropdownLabel"|trans|striptags }}"
+                        title="{{ "zeobv-country-select.dropdownLabel"|trans|striptags }}">
+                    {% sw_icon 'marker' %}
+                </button>
+            {% endblock %}
+
+            {% block layout_header_actions_country_widget_dropdown_menu %}
+                <div class="dropdown-menu dropdown-menu-right country-menu-dropdown js-country-menu-dropdown"
+                    aria-labelledby="countryWidget">
+                    
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
