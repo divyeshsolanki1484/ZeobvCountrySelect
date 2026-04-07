@@ -28,27 +28,27 @@ export default class ZeobvCountrySelect extends Plugin {
         this.el.querySelector('.dropdown-menu').appendChild(selectedCountryEl)
 
         this.contextClient.get(this.options.storeApiContextUrl).then((context) => {
-            const country = context.shippingLocation.country;
-            // Use translated.name as fallback if name is null
+            const country = context?.shippingLocation?.country;
+            if (!country) return;
             const countryName = country.name || (country.translated && country.translated.name) || country.iso3 || '';
             selectedCountryEl.innerText = countryName;
-        })
+        }).catch(() => {})
     }
 
     createCountySelect() {
         this.getCountries((countries) => {
             this.countries = countries
 
-            const countryOptions = countries.map((element) => {
-                return `<li class="zeobv-country-select__option" data-value="${element.id}">${element.name}</li>`
-            })
-
             const countrySelectEl = document.createElement('ul')
             countrySelectEl.classList.add('zeobv-country-select')
-            countrySelectEl.innerHTML = countryOptions.join(' ')
 
-            countrySelectEl.querySelectorAll('li').forEach((el) => {
-                el.addEventListener('click', this.setCountryInContext)
+            countries.forEach((element) => {
+                const li = document.createElement('li')
+                li.className = 'zeobv-country-select__option'
+                li.dataset.value = element.id
+                li.textContent = element.name
+                li.addEventListener('click', this.setCountryInContext)
+                countrySelectEl.appendChild(li)
             })
 
             this.el.querySelector('.dropdown-menu').appendChild(countrySelectEl)
@@ -57,9 +57,10 @@ export default class ZeobvCountrySelect extends Plugin {
 
     setCountryInContext(event) {
         const selectedCountryId = event.target.dataset.value
-        this.el.querySelector('.zeobv-country-select__selected').innerText = this.countries.find((country) => {
-            return country.id === selectedCountryId
-        }).name
+        const matched = this.countries.find((country) => country.id === selectedCountryId)
+        if (!matched) return
+
+        this.el.querySelector('.zeobv-country-select__selected').innerText = matched.name
 
         this.contextClient
             .patch(this.options.storeApiContextUrl, {
@@ -78,7 +79,7 @@ export default class ZeobvCountrySelect extends Plugin {
                 }
 
                 window.location.href = window.location.origin + window.location.pathname + `?${queryString}`
-            })
+            }).catch(() => {})
     }
 
     async getCountries(callback, prevResult = []) {
@@ -93,7 +94,7 @@ export default class ZeobvCountrySelect extends Plugin {
             .then((result) => {
                 const elements = [...result.elements, ...prevResult]
 
-                if (result.total < 100) {
+                if (result.elements.length < 100) {
                     // Use translated.name as fallback if name is null
                     elements.forEach(country => {
                         if (!country.name && country.translated && country.translated.name) {
@@ -110,7 +111,7 @@ export default class ZeobvCountrySelect extends Plugin {
                 }
 
                 this.getCountries(callback, elements)
-            })
+            }).catch(() => {})
     }
 
     _prepareStoreApiCommunication(ready) {
